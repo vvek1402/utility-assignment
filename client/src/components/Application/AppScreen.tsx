@@ -34,9 +34,10 @@ const AppScreen: React.FC = () => {
       await axiosInstance.post("/applications/close-other-tab", {
         applicationId,
         tabId,
-        userId
+        userId,
       });
-      localStorage.setItem("logoutOtherTabs", Date.now().toString());
+  
+      localStorage.setItem(`logout-${applicationId}`, Date.now().toString());
       setConflict(false);
     } catch (error) {
       console.error("Error logging out other tabs:", error);
@@ -67,14 +68,14 @@ const AppScreen: React.FC = () => {
 
   useEffect(() => {
     const handleStorageChange = (event: StorageEvent) => {
-      if (event.key === "logoutOtherTabs") {
-        navigate("/");
+      if (event.key === `logout-${applicationId}`) {
+        navigate("/"); 
       }
     };
-
+  
     window.addEventListener("storage", handleStorageChange);
     return () => window.removeEventListener("storage", handleStorageChange);
-  }, [navigate]);
+  }, [navigate, applicationId]);
 
   return (
     <Container size="sm" py={40}>
