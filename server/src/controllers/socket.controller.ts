@@ -30,7 +30,7 @@ export const initializeSocket = (io: Server): void => {
       const sessionKey = `${userId}-${applicationId}`;
       sessionCache.set(sessionKey, [tabId]);
 
-      io.emit("close-other-tabs-notification", {
+      socket.broadcast.emit("close-other-tabs-notification", {
         userId,
         applicationId,
         tabId,

@@ -43,11 +43,14 @@ const AppScreen: React.FC = () => {
       setConflict(conflict);
     });
 
-    onEvent("close-other-tabs-notification", ({ applicationId: appId, tabId: ttabId }) => {
-      if (appId == applicationId && ttabId != tabId) {
-        navigate("/");
+    onEvent(
+      "close-other-tabs-notification",
+      ({ applicationId: appId, tabId: ttabId }) => {
+        if (appId == applicationId && ttabId != tabId) {
+          navigate("/");
+        }
       }
-    });
+    );
   }, [emitEvent, onEvent, isConnected, userId, applicationId, tabId, navigate]);
 
   const handleLogoutOtherTab = () => {
